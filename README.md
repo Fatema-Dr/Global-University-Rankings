@@ -76,5 +76,5 @@ An interactive dashboard is being developed in Tableau to bring this data to lif
 ## Author
 
 * **Fatema Doctor**
-* [linkedin.com/in/your-profile](https://www.linkedin.com/doctor-fatema)
-* [github.com/your-github-username](https://github.com/Fatema-Dr)
+* [linkedin.com/in/doctor-fatema](https://www.linkedin.com/doctor-fatema)
+* [github.com/Fatema-Dr](https://github.com/Fatema-Dr)
