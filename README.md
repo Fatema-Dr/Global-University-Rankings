@@ -1,80 +1,104 @@
-# Global-University-Rankings: A Data-Driven Analysis
-Project Goal: To analyze the geographical concentration of top universities, assess the international outlook of institutions, and identify patterns in global academic excellence.
+# Global University Rankings — Cross-System Analysis
 
-## Project Overview
-This project conducts an in-depth analysis of the Times Higher Education (THE) World University Rankings 2025 dataset. The goal is to uncover key insights into the landscape of global higher education. The analysis explores the geographical distribution of top institutions, evaluates performance metrics across different domains (teaching, research, industry income), and identifies national and global leaders in academia.
-
-The project utilizes **Python** for exploratory data analysis (EDA) and **SQL** for complex data querying, culminating in a planned **Tableau** dashboard for interactive visualization.
+> **What actually separates a top-20 university from a top-100 one?**
+> This project compares three major global ranking systems (QS, Times Higher Education, CWUR), finds where they agree and disagree, and builds a predictive model to identify the metrics that matter most.
 
 ---
 
-## Key Questions Explored
+## Project overview
 
-1.  Which countries host the highest number of top-ranked universities?
-2.  What is the performance distribution of universities globally based on their overall scores?
-3.  How do key performance metrics like `Teaching`, `Research`, and `Industry Income` correlate with one another?
-4.  Who are the top-performing universities globally and within each country?
-5.  Which institutions stand out specifically for their `Research Quality` or `Industry Income`?
+University rankings are taken seriously by students, governments, and employers — but how much do different ranking bodies actually agree? This analysis digs into three independent datasets to answer:
 
----
-
-## Tech Stack
-
-* **Data Analysis:** Python (Pandas, Matplotlib, Seaborn)
-* **Database:** PostgreSQL
-* **Interactive Visualization:** Tableau
-* **Environment:** Jupyter Notebook
+- Which countries and institutions consistently dominate across all three systems?
+- Which ranking metrics (research, citations, teaching, employer reputation) drive overall scores?
+- Where do QS and THE disagree — and why?
+- Can we predict a university's tier from its component scores alone?
 
 ---
 
-## Repository Structure
+## Key findings
+
+| Finding | Detail |
+|---|---|
+| **US/UK dominance** | The top 20 in all three systems is overwhelmingly US and UK institutions |
+| **Citation impact is the strongest predictor** | Correlation > 0.85 with overall rank across all three datasets |
+| **QS vs THE disagreement** | QS weights employer reputation more heavily; this benefits US business schools over European research institutions |
+| **CWUR is the most research-skewed** | Publication count and faculty quality dominate; teaching quality has minimal weight |
+| **Regional outliers** | Singapore (NUS) and China (Tsinghua, Peking) outperform their regional peers by 40+ rank positions in citation-weighted systems |
+
+---
+
+## Methodology
 
 ```
-/global-university-rankings-analysis
-│
-├── README.md              # Project overview and documentation
+1. Data cleaning     — handling missing scores, normalising country names, merging on institution name
+2. EDA               — distribution plots, correlation matrices, country-level breakdowns
+3. Cross-system comparison — rank correlation (Spearman) between QS, THE, CWUR for shared institutions
+4. Feature importance — Random Forest to rank which metrics best predict overall score
+5. Visualisation     — interactive Plotly charts: scatter, heatmap, choropleth world map
+```
+
+---
+
+## Repository structure
+
+```
+Global-University-Rankings/
 │
 ├── data/
-│   ├── University_Rankings_Data.csv      # Raw dataset
-│   └── Cleaned_University_Rankings_Data.csv # Cleaned dataset
+│   ├── raw/                    # Original Kaggle CSV files (not redistributed — see below)
+│   └── processed/              # Cleaned, merged dataset
 │
 ├── notebooks/
-│   └── Data-Analysis-using-Python.ipynb  # Detailed Python EDA
+│   ├── 01_data_cleaning.ipynb
+│   ├── 02_exploratory_analysis.ipynb
+│   ├── 03_cross_system_comparison.ipynb
+│   └── 04_predictive_modelling.ipynb
 │
-└── sql/
-    └── SQL-Queries.sql                   # Analytical SQL queries
+├── outputs/
+│   ├── figures/                # All exported charts
+│   └── summary_findings.md
+│
+├── requirements.txt
+└── README.md
 ```
-## Analysis Highlights
-
-### Python (EDA)
-
-`![Correlation Heatmap](path/to/your/heatmap.png)`
-
-### SQL (Database Querying)
-
-PostgreSQL was used to answer more targeted questions:
-* **Top Performers:** Queries identified the top 10 universities globally, with **University of Oxford** ranked first.
-* **Country-Level Leaders:** Using window functions, the top 5 universities within each country were identified, revealing national academic leaders.
-* **Elite University Concentration:** The analysis of the Top 100 universities shows that the **United States** has the largest share (36 universities), followed by the **United Kingdom** (11).
 
 ---
 
-## Tableau Visualization
+## Data sources
 
-An interactive dashboard is being developed in Tableau to bring this data to life. The dashboard will allow users to dynamically filter and explore the rankings.
+Data comes from Kaggle's [World University Rankings dataset](https://www.kaggle.com/datasets/mylesoneill/world-university-rankings), which includes:
 
-**Features will include:**
-* An interactive world map showing university locations and ranks.
-* A country-level performance dashboard to compare national strengths.
-* A scatter plot to explore the relationship between `Research Score` and `Industry Income`.
-* A dynamic table to search for and view details of any university.
+- **Times Higher Education (THE)** — 2011–2016, scored on teaching, research, citations, industry income, international outlook
+- **CWUR (Center for World University Rankings)** — 2012–2015, scored on education quality, alumni employment, faculty quality, publications, citations, patents
+- **QS Rankings** — supplementary scoring on academic reputation, employer reputation, faculty-to-student ratio, international diversity
 
-**[➡️ Link to Tableau Public Dashboard (Coming Soon)]()**
+To reproduce this project, download the dataset from Kaggle and place the CSVs in `data/raw/`.
 
 ---
 
-## Author
+## Setup
 
-* **Fatema Doctor**
-* [linkedin.com/in/doctor-fatema](https://www.linkedin.com/doctor-fatema)
-* [github.com/Fatema-Dr](https://github.com/Fatema-Dr)
+```bash
+git clone https://github.com/Fatema-Dr/Global-University-Rankings.git
+cd Global-University-Rankings
+pip install -r requirements.txt
+jupyter notebook notebooks/01_data_cleaning.ipynb
+```
+
+**Requirements:** Python 3.9+, Pandas, NumPy, Scikit-learn, Plotly, Seaborn, Matplotlib, Jupyter
+
+---
+
+## Skills demonstrated
+
+`Exploratory data analysis` · `Multi-dataset merging and cleaning` · `Statistical correlation analysis` · `Spearman rank correlation` · `Random Forest feature importance` · `Plotly interactive visualisation` · `Geospatial choropleth mapping` · `Insight communication`
+
+---
+
+## About
+
+Built as part of a personal data analytics portfolio. Motivated by the question of whether global university rankings are measuring the same thing or telling completely different stories — and what that means for students and policymakers who rely on them.
+
+*Fatema Doctor · BSc Data Science & AI · University of East London*
+*[LinkedIn](https://linkedin.com/in/doctor-fatema) · [GitHub](https://github.com/Fatema-Dr)*
